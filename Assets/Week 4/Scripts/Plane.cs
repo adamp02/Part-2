@@ -10,18 +10,41 @@ public class Plane : MonoBehaviour
     public float newPointThreshold = 0.2f;
     Vector3 lastPosition; //camera returns vector3!
     LineRenderer lineRenderer;
+    SpriteRenderer spriteRenderer;
     Vector2 currentPosition;
     Rigidbody2D rigidbody;
     public float speed = 1f;
     public AnimationCurve landing;
     float landingTimer;
+    int randomColor;
 
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, transform.position);
+
+        //randomColor = new Color(Random.Range(0, 255), Random.Range(0, 255), Random.Range(0, 255));
+        // ^ this changes the sprite color, but it doesn't appear in-game unless you adjust the inspector
+
+
+        randomColor = Random.Range(1, 3);
+
+        if (randomColor == 1)
+        {
+            spriteRenderer.color = Color.blue;
+        }
+        else if (randomColor == 2)
+        {
+            spriteRenderer.color = Color.red;
+        } 
+        else
+        {
+            spriteRenderer.color = Color.black;
+        }
+
     }
 
     private void OnMouseDown()
