@@ -12,7 +12,7 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timerTarget = Random.Range(2, 5);
+        timerTarget = Random.Range(2, 6);
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class Spawner : MonoBehaviour
         {
             Instantiate(plane);
             timerValue = 0;
-            timerTarget = Random.Range(2, 5);
+            timerTarget = Random.Range(2, 6);
 
 
         }

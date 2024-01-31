@@ -16,7 +16,12 @@ public class Plane : MonoBehaviour
     public float speed = 1f;
     public AnimationCurve landing;
     float landingTimer;
+    bool isLanding = false;
     int randomColor;
+
+    float destructionTimer = 0;
+
+    public GameObject ownTrigger; // <-- this isnt a good method
 
     private void Start()
     {
@@ -89,12 +94,13 @@ public class Plane : MonoBehaviour
     private void Update()
     {
 
-        if(Input.GetKey(KeyCode.Space))
+        if(isLanding)
         {
             landingTimer += 0.1f * Time.deltaTime;
             float interpolation = landing.Evaluate(landingTimer);
             if (transform.localScale.z < 0.1f)
             {
+                Debug.Log("Plane landed - Score increased!");
                 Destroy(gameObject);
             }
 
@@ -117,6 +123,49 @@ public class Plane : MonoBehaviour
 
         }
     }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.name == "Runway")
+        {
+            Debug.Log("Trigger!");
+            isLanding = true;
+
+        }
+
+        if (collision.gameObject.name == "A" && collision.gameObject != ownTrigger.gameObject)
+        {
+            Debug.Log("Proximity warning!");
+            //isLanding = true;
+
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        destructionTimer = 0;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "A" && collision.gameObject != ownTrigger.gameObject)
+        {
+            destructionTimer += Time.deltaTime;
+
+            if (destructionTimer > 2)
+            {
+                Debug.Log("Too close - plane destroyed!");
+                Destroy(gameObject);
+
+            }
+
+        }
+    }
+
+
 
 
 }
