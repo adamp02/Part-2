@@ -101,4 +101,15 @@ public class Knight : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("OW!");
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("OWr!");
+    }
+
+
 }

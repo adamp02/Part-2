@@ -166,6 +166,9 @@ public class Plane : MonoBehaviour
     }
 
 
-
+    private void OnTriggerEnter2D(Collision2D collision)
+    {
+        Debug.Log("OW!");
+    }
 
 }
