@@ -14,4 +14,9 @@ public class HealthBar : MonoBehaviour
 
     }
 
+    public void LoadHealth(float health)
+    {
+        slider.value = health;
+    }
+
 }
