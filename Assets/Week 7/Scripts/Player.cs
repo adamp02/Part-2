@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     Rigidbody2D rb;
     public float force = 5f;
+    public float speed = 10f;
     public SpriteRenderer baseColour;
 
     public Color colorA = Color.white;
@@ -19,37 +20,28 @@ public class Player : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         baseColour = gameObject.GetComponent<SpriteRenderer>();
+
     }
 
     private void Update()
     {
-        direction.x = Input.GetAxis("Horizontal");
-        direction.y = Input.GetAxis("Vertical");
+      //  direction.x = Input.GetAxis("Horizontal");
+      //  direction.y = Input.GetAxis("Vertical");
     }
 
     private void FixedUpdate()
     {
 
-        rb.AddForce(direction * force * Time.deltaTime);
+        //rb.AddForce(direction * force * Time.deltaTime);
     }
 
     private void OnMouseDown()
     {
-        //isS = true;
-        Selected(true);
-
-
-
-        //gameObject.SendMessage("TakeDamage", 1);
-
-
-
-        //TakeDamage(1);
-        //healthBar.TakeDamage(1);
+        Controller.SetSelectedPlayer(this);
     }
 
 
-    private void Selected(bool isSelected)
+    public void Selected(bool isSelected)
     {
         Debug.Log("Selected!");
         baseColour.color = colorB;
@@ -60,6 +52,11 @@ public class Player : MonoBehaviour
         {
             baseColour.color = colorA;
         }
+    }
+
+    public void Move(Vector2 direction)
+    {
+        rb.AddForce(direction * speed, ForceMode2D.Impulse);
     }
 
 }
